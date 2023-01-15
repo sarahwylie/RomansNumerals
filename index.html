@@ -1,37 +1,53 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Roman's Numerals</title>
-    <link rel="stylesheet" href="style.css" />
-    <link rel="icon" type="image/png" sizes="48x48" href="/roman-numeral-2.png">
+    <link rel="icon" type="image/png" sizes="48x48" href="roman-numeral-2.png">
+    <script src="https://cdn.tailwindcss.com?plugins=forms"></script>
 </head>
-<body>
-    <div class="wrapper">
-        <header>
-          <h1>Roman's Numerals</h1>
+
+<body class="bg-[#fff5e6]">
+    <div class="container mx-auto grid grid-flow-row auto-rows-max text-center">
+        <header class="my-8">
+            <h1 class="font-bold text-6xl font-serif drop-shadow-md">Roman's Numerals</h1>
+            <h2 class="font-sans text-xl">Input an integer, receive that integer's roman numeral!</h2>
         </header>
-        <div class="card">
-          <div class="card-header">
-            <h2>Input an integer, receive that integer's roman numeral!</h2>
-          </div>
-          <div class="card-body">
-            <input
-              id="integ"
-              placeholder="Input Your Integer"
-              aria-label="Integer Input"
-            ></textarea>
-          </div>
-          <div class="card-footer">
-            <button id="generate" class="flex items-center px-4 py-3 text-white bg-blue-500 hover:bg-blue-400">Generate Roman Numeral</button>
-          </div>
-          <div>
-            HERE IS THE OUTPUT!
-          </div>
-        </div>
-      </div>
-      <script src="script.js"></script>
+        <form class="columns-1">
+            <!-- <span class="block text-sm font-medium text-slate-700">Integer</span> -->
+            <input type="number" id="numberical" placeholder="Input Your Integer"
+                class="my-2 rounded bg-[#e5dbb7] border-double border-[#facd1e] border-4 focus:bg-[#cac198] focus:border-current focus:border-[#facd1e] focus:ring-0 shadow-sm shadow-[#7f2122]"
+                aria-label="Integer Input" /></br>
+            <button type="button" onclick="numToRom()" id="generate"
+                class="my-3 p-2 rounded-xl bg-[#e5dbb7] hover:bg-[#cac198] focus:outline-none focus:ring-1 focus:ring-[#facd1e] shadow-md shadow-[#7f2122]">Generate
+                Roman Numeral</button></br>
+        </form>
+        <h1 id="output" class="mt-8 font-bold text-6xl font-serif drop-shadow-md break-all"></h1>
+    </div>
+    </div>
+    <script>
+        const numToRom = () => {
+            const num = document.querySelector("#numberical").value;
+            console.log(num)
+            const intToNum = num => {
+
+                const digits = String(+num).split("");
+                key = ["", "C", "CC", "CCC", "CD", "D", "DC", "DCC", "DCCC", "CM",
+                    "", "X", "XX", "XXX", "XL", "L", "LX", "LXX", "LXXX", "XC",
+                    "", "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX"];
+
+                romNum = "";
+                i = 3;
+                while (i--)
+                    romNum = (key[+digits.pop() + (i * 10)] || "") + romNum
+                return Array(+digits.join("") + 1).join("M") + romNum;
+            };
+            document.querySelector("#output").innerHTML = intToNum(num);
+        }
+    </script>
 </body>
+
 </html>
